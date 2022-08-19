@@ -10,7 +10,6 @@ export default function SearchScreen() {
             .then((response) => response.json())
         .then((data)=> SetZipCodeList(data))
     })
-    if(zipCodeList.length > 0) console.log(zipCodeList[0].zip)
     const [zipCode, setZipCode] = useState('')
     const navigation = useNavigation();
     const goToWeather = () => {
