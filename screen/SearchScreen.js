@@ -1,28 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, Text, TextInput, View, StyleSheet, Button, ImageBackground } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 export default function SearchScreen() {
-    
+    const [zipCodeList, SetZipCodeList] = useState([]);
+
+    useEffect(() => {
+        fetch('https://raw.githubusercontent.com/rathpanyowat/Thai-zip-code-latitude-and-longitude/master/data.json')
+            .then((response) => response.json())
+        .then((data)=> SetZipCodeList(data))
+    })
+    if(zipCodeList.length > 0) console.log(zipCodeList[0].zip)
     const [zipCode, setZipCode] = useState('')
     const navigation = useNavigation();
     const goToWeather = () => {
-        // if (zipCode.length == 0){
-        //     alert("Zip code is empty\nPlease type zip code")
-        // }
-        // else if (zipCode.length != 5) {
-        //     alert("Invalid Zip Code\nPlease type valid zip code")
-        // }
-        // else {
+        if (zipCode.length == 0){
+            alert("Zip code is empty\nPlease type zip code")
+        }
+        else if (zipCode.length != 5) {
+            alert("Invalid Zip Code\nPlease type valid zip code")
+        }
+        else {
             
-            // if (zipCodeArray.includes(zipCode)) {
+            if (zipCodeList.some(zip => zip.zip == zipCode)) {
                 navigation.navigate("Weather", {zipCode: zipCode})
-            // }
-            // else {
-            //     alert("Zip code does not exist")
+            }
+            else {
+                alert("Zip code does not exist")
                 
-            // }   
-        // }
+            }   
+        }
     }
     return (
         <ImageBackground source={require('../bg.jpg')} style={styles.backdrop}>
