@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, View, Text, StyleSheet, TouchableHighlight, ImageBackground } from "react-native";
+import { FlatList, View, Text, StyleSheet, TouchableHighlight, ImageBackground, Button } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 
 const availableZipItems = [
@@ -30,6 +30,7 @@ export default function ZipCodeScreen() {
             renderItem={({ item }) => <ZipItem{...item} navigation={navigation} />}
             
             />
+            <Button title="Search" onPress={() => {navigation.navigate('Search')}}/>
         </ImageBackground>
     ); 
 }
